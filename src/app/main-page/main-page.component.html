@@ -1,14 +1,16 @@
 <p>
   main-page works!
 </p>
+<form (submit)=updateUsers()>
+  <h2>
+    {{ capacity }}
+  </h2>
+  <button type="submit">Submit</button>
+</form>
 
-<h2>
-  {{ capacity }}
-</h2>
-<!--
 <div>
   <p>Select a parking lot</p>
-  <select [(ngModel)]="CurrentLot" (change)="getLot()">
+  <select [(ngModel)]="CurrentLot">
     <option *ngFor="let lot of ParkingLots" [value]="lot">{{ lot }}</option>
   </select>
 </div>
@@ -28,7 +30,7 @@
   </h3>
   <ul *ngFor="let unknown of unknowns">
     <li>
-      {{ unknown?.plate }}
+      {{ unknown }}
     </li>
   </ul>
-</div>-->
+</div>

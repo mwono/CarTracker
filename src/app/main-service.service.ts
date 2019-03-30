@@ -13,7 +13,7 @@ import { User } from './User';
 /getActiveNotReg: return list of all active non-reg cars
 /sendUpdate: sends update to all reg cars
 */
-export class MainServiceService {
+export class MainService {
   constructor(private http: HttpClient) { }
 
   SendUpdate(lot: string): Observable<any> {
@@ -28,7 +28,7 @@ export class MainServiceService {
     return this.http.post<any[]>('/getActiveNotReg', lot);
   }
 
-  getCapacity(lot: string): Observable<any> {
+  GetCapacity(lot: string): Observable<any> {
     return this.http.post<any>('/getCapacity', lot);
   }
 }
