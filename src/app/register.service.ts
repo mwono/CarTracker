@@ -12,6 +12,6 @@ export class RegisterService {
   constructor(private http: HttpClient) { }
 
   CreateNewUser(user: User): Observable<any> {
-    return this.http.post<any>('ENDPOINT', user);
+    return this.http.post<any>('/register', user);
   }
 }

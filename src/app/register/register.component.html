@@ -1,3 +1,14 @@
 <p>
   register works!
 </p>
+<form (submit)="Register()">
+  <div>
+    <label>Phone Number</label>
+    <input name="phone" [(ngModel)]="user.phone">
+  </div>
+  <div>
+      <label>License Plate</label>
+      <input name="plate" [(ngModel)]="user.plate">
+  </div>
+  <button type="submit">Submit</button>
+</form>
