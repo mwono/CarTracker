@@ -1,35 +1,54 @@
 <div class="container">
-    <form (submit)=updateUsers()>
-        <h2>
-            {{ capacity }} / {{ maxCapacity}}
-        </h2>
-        <button type="submit">Submit</button>
-    </form>
+    <div class="row">
+        <div class="col-md-4">
+            <div>
+                Select a parking lot
+                <select [(ngModel)]="CurrentLot" (change)=getCurrentLot()>
+                    <option *ngFor="let lot of ParkingLots" [value]="lot">{{ lot }}</option>
+                </select>
+            </div>
+            <form (submit)=updateUsers()>
+                <h3>
+                    Capacity: {{ capacity }}
+                </h3>
+                <h3>
+                    Max Capacity: {{ maxCapacity}}
+                </h3>
+                <button class="btn btn-success" type="submit">Update</button>
+            </form>
 
-    <div>
-        <p>Select a parking lot</p>
-        <select [(ngModel)]="CurrentLot" (change)=getCurrentLot()>
-            <option *ngFor="let lot of ParkingLots" [value]="lot">{{ lot }}</option>
-        </select>
-    </div>
-    <div>
-        <h3>
-            Registered
-        </h3>
-        <ul *ngFor="let user of users">
-            <li>
-                {{ user?.phone }} {{ user?.plate }}
-            </li>
-        </ul>
-    </div>
-    <div>
-        <h3>
-            Unregistered
-        </h3>
-        <ul *ngFor="let unknown of unknowns">
-            <li>
-                {{ unknown }}
-            </li>
-        </ul>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <h3>
+                    Registered
+                </h3>
+                <table class="table" >
+                    <tr>
+                        <th scope="col">Phone</th>
+                        <th scope="col">License Plate</th>
+                    </tr>
+                    <tbody *ngFor="let user of users">
+                        <td>{{ user?.phone }}</td>
+                        <td>{{ user?.plate }}</td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <h3>
+                    Unregistered
+                </h3>
+                <table class="table" >
+                        <tr>
+                            <th scope="col">License Plate</th>
+                        </tr>
+                        <tbody *ngFor="let unknown of unknowns">
+                            <td>{{ unknown }}</td>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
     </div>
 </div>

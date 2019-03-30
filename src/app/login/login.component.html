@@ -1,3 +1,32 @@
-<p>
-  login works!
-</p>
+<form (submit)="Login()">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-center">
+                <h2>Login</h2>
+            </div>
+        </div>
+        <div class="row p-3">
+            <div class="col-md-12 d-flex justify-content-center">
+                <label class="pr-3"> Phone Number </label>
+                <input type="tel" name="phone" [(ngModel)]="user.phone">
+            </div>
+        </div>
+        <div class="row p-3">
+            <div class="col-md-12 d-flex justify-content-center">
+                <label class="pr-3"> License Plate </label>
+                <input type="text" name="plate" [(ngModel)]="user.plate">
+            </div>
+        </div>
+        <div class="row p-3">
+            <div class="col-md-12 d-flex justify-content-center">
+                <label class="pr-3"> Name </label>
+                <input type="text" name="name" [(ngModel)]="user.name">
+            </div>
+        </div>
+        <div class="row p-3">
+            <div class="col-md-12 d-flex justify-content-center">
+                <button class="btn btn-dark" type="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
