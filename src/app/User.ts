@@ -1,4 +1,5 @@
 export interface User{ 
     phone: number,
-    plate: string
+    plate: string,
+    name: string
 };

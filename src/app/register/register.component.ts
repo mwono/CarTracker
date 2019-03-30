@@ -10,12 +10,13 @@ import { RegisterService } from '../register.service';
 export class RegisterComponent implements OnInit {
   user: User = {
     phone: 0,
-    plate: ''
+    plate: '',
+    name: ''
   };
 
   constructor(private serv: RegisterService) { }
 
-  register() {
+  Register() {
     this.serv.CreateNewUser(this.user).subscribe((res) => {
       console.log(res);
     });

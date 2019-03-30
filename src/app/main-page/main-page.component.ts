@@ -17,11 +17,13 @@ export class MainPageComponent implements OnInit {
   users: User[] = [
     {
       phone: 123,
-      plate: 'abc'
+      plate: 'abc',
+      name: 'john'
     },
     {
       phone: 456,
-      plate: 'def'
+      plate: 'def',
+      name: 'bob'
     },
   ];
   unknowns: string[] = ['abc', 'def', 'hij'];

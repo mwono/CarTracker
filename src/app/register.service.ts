@@ -12,7 +12,7 @@ export class RegisterService {
   constructor(private http: HttpClient) { }
 
   CreateNewUser(user: User): Observable<any> {
-    return this.http.post<any>('/register', user)
+    return this.http.post<any>('https://us-central1-licese-plate-scanner.cloudfunctions.net/register', user)
     .pipe(
       catchError(this.handleError)
     );

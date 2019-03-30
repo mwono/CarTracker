@@ -1,14 +1,14 @@
 <div class="container">
     <form (submit)=updateUsers()>
         <h2>
-            {{ capacity }}
+            {{ capacity }} / {{ maxCapacity}}
         </h2>
         <button type="submit">Submit</button>
     </form>
 
     <div>
         <p>Select a parking lot</p>
-        <select [(ngModel)]="CurrentLot">
+        <select [(ngModel)]="CurrentLot" (change)=getCurrentLot()>
             <option *ngFor="let lot of ParkingLots" [value]="lot">{{ lot }}</option>
         </select>
     </div>
