@@ -1,14 +1,25 @@
-<p>
-  register works!
-</p>
 <form (submit)="Register()">
-  <div>
-    <label>Phone Number</label>
-    <input type="tel" name="phone" [(ngModel)]="user.phone">
-  </div>
-  <div>
-      <label>License Plate</label>
-      <input type="text" name="plate" [(ngModel)]="user.plate">
-  </div>
-  <button type="submit">Submit</button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-center p-3">
+                <label class="pr-3">Phone Number</label>
+
+                <input type="tel" name="phone" [(ngModel)]="user.phone">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-center p-3">
+                <label class="pr-3">License Plate</label>
+                <input type="text" name="plate" [(ngModel)]="user.plate">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-center p-3">
+                <button type="submit">Submit</button>
+
+            </div>
+        </div>
+    </div>
+
+
 </form>

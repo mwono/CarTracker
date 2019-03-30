@@ -1,36 +1,35 @@
-<p>
-  main-page works!
-</p>
-<form (submit)=updateUsers()>
-  <h2>
-    {{ capacity }}
-  </h2>
-  <button type="submit">Submit</button>
-</form>
+<div class="container">
+    <form (submit)=updateUsers()>
+        <h2>
+            {{ capacity }}
+        </h2>
+        <button type="submit">Submit</button>
+    </form>
 
-<div>
-  <p>Select a parking lot</p>
-  <select [(ngModel)]="CurrentLot">
-    <option *ngFor="let lot of ParkingLots" [value]="lot">{{ lot }}</option>
-  </select>
-</div>
-<div>
-  <h3>
-    Registered
-  </h3>
-  <ul *ngFor="let user of users">
-    <li>
-      {{ user?.phone }} {{ user?.plate }}
-    </li>
-  </ul>
-</div>
-<div>
-  <h3>
-    Unregistered
-  </h3>
-  <ul *ngFor="let unknown of unknowns">
-    <li>
-      {{ unknown }}
-    </li>
-  </ul>
+    <div>
+        <p>Select a parking lot</p>
+        <select [(ngModel)]="CurrentLot">
+            <option *ngFor="let lot of ParkingLots" [value]="lot">{{ lot }}</option>
+        </select>
+    </div>
+    <div>
+        <h3>
+            Registered
+        </h3>
+        <ul *ngFor="let user of users">
+            <li>
+                {{ user?.phone }} {{ user?.plate }}
+            </li>
+        </ul>
+    </div>
+    <div>
+        <h3>
+            Unregistered
+        </h3>
+        <ul *ngFor="let unknown of unknowns">
+            <li>
+                {{ unknown }}
+            </li>
+        </ul>
+    </div>
 </div>
