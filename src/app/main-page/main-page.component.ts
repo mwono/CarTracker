@@ -34,6 +34,11 @@ export class MainPageComponent implements OnInit {
 
   updateUsers() {
     this.serv.SendUpdate(this.CurrentLot, this.capacity).subscribe((res) => {
+      if (res.response == "Success") {
+        window.alert("Successfully sent update");
+      } else {
+        window.alert("Failed to send alert");
+      }
       console.log(res);
     });
   }
