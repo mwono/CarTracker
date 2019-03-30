@@ -10,15 +10,15 @@ import { User } from './User';
 export class MainServiceService {
   constructor(private http: HttpClient) { }
 
-  SendUpdate(): Observable<any> {
-    return this.http.get<any>('ENDPOINTHERE');
+  SendUpdate(lot: string): Observable<any> {
+    return this.http.post<any>('ENDPOINTHERE', lot);
   }
 
-  GetRegistered(): Observable<any[]> {
-    return this.http.get<any[]>('ENDPOINTHERE');
+  GetRegistered(lot: string): Observable<any[]> {
+    return this.http.post<any[]>('ENDPOINTHERE', lot);
   }
 
-  GetUnregistered(): Observable<any[]> {
-    return this.http.get<any[]>('ENDPOINTHERE');
+  GetUnregistered(lot: string): Observable<any[]> {
+    return this.http.post<any[]>('ENDPOINTHERE', lot);
   }
 }
