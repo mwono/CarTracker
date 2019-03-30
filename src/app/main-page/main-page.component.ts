@@ -10,9 +10,10 @@ import { Subscription, interval } from 'rxjs';
   styleUrls: ['./main-page.component.css']
 })
 export class MainPageComponent implements OnInit {
-  capacity = 0;
+  capacity: number = 0;
+  maxCapacity: number = 0;
   ParkingLots: string[] = ['Lot A', 'Lot B', 'Lot C'];
-  CurrentLot: '';
+  CurrentLot: string = '';
   users: User[] = [
     {
       phone: 123,
@@ -30,7 +31,7 @@ export class MainPageComponent implements OnInit {
   constructor(private serv: MainService) { }
 
   updateUsers() {
-    this.serv.SendUpdate(this.CurrentLot).subscribe((res) => {
+    this.serv.SendUpdate(this.CurrentLot, this.capacity).subscribe((res) => {
       console.log(res);
     });
   }
@@ -51,8 +52,14 @@ export class MainPageComponent implements OnInit {
     });
   }
 
+  getCurrentLot() {
+    this.serv.GetCurrentLot(this.CurrentLot).subscribe((res) => {
+      this.maxCapacity = res.maxCapacity;
+    })
+  }
+
   ngOnInit() {
-    this.updateSubscription = interval(100000).subscribe((val) => {
+    this.updateSubscription = interval(100000).subscribe(() => {
       this.update();
     });
   }
