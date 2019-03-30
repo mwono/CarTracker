@@ -1,24 +1,28 @@
 import { Injectable } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+export interface User {
+  phone: number,
+  plate: string
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class MainServiceService {
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  SendUpdate() {
-
+  SendUpdate(): Observable<any> {
+    return this.http.get<any>('ENDPOINTHERE');
   }
 
-  GetRegistered() {
-
+  GetRegistered(): Observable<any[]> {
+    return this.http.get<any[]>('ENDPOINTHERE');
   }
 
-  GetUnregistered() {
-    
+  GetUnregistered(): Observable<any[]> {
+    return this.http.get<any[]>('ENDPOINTHERE');
   }
 }
