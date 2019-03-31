@@ -74,7 +74,7 @@ export class MainPageComponent implements OnInit {
     }
 
     deleteEntry() {
-        this.serv.deleteUsers(this.selectedUsers).subscribe((res) => {
+        this.serv.deleteUsers(this.selectedUsers, true).subscribe((res) => {
           for (let i of this.selectedUsers) {
             this.users.splice(this.users.indexOf(i), 1);
             this.capacity--;
@@ -84,7 +84,7 @@ export class MainPageComponent implements OnInit {
     }
 
     deleteUnknownEntry() {
-        this.serv.deleteUsers(this.selectedUnknownUsers).subscribe((res) => {
+        this.serv.deleteUsers(this.selectedUnknownUsers, false).subscribe((res) => {
           for (let i of this.selectedUnknownUsers) {
             this.unknownUsers.splice(this.unknownUsers.indexOf(i), 1);
             this.capacity--;

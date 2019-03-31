@@ -44,8 +44,8 @@ export class MainService {
             );
     }
 
-    deleteUsers(plateId: string[]): Observable<any[]> {
-        return this.http.post<any[]>('tempEndpoint', JSON.stringify(plateId)).pipe(catchError(this.handleError));
+    deleteUsers(plateId: string[], r: boolean): Observable<any[]> {
+        return this.http.post<any[]>('tempEndpoint', { list: JSON.stringify(plateId), registered: r }).pipe(catchError(this.handleError));
     }
 
     private handleError(error: HttpErrorResponse) {
