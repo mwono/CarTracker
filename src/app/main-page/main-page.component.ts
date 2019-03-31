@@ -5,96 +5,133 @@ import { getLocaleTimeFormat } from '@angular/common';
 import { Subscription, interval } from 'rxjs';
 
 @Component({
-  selector: 'app-main-page',
-  templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.css']
+    selector: 'app-main-page',
+    templateUrl: './main-page.component.html',
+    styleUrls: ['./main-page.component.css']
 })
 export class MainPageComponent implements OnInit {
-  capacity: number = 0;
-  maxCapacity: number = 0;
-  ParkingLots: string[] = ['Lot A', 'Lot B', 'Lot C'];
-  CurrentLot: string = '';
-  users: User[] = [
-    {
-      phone: 123,
-      plate: 'abc',
-      name: 'john',
+    capacity: number = 0;
+    maxCapacity: number = 0;
+    ParkingLots: string[] = ['Lot A', 'Lot B', 'Lot C'];
+    CurrentLot: string = '';
+    users: User[] = [
+        {
+            phone: 123,
+            plate: 'abc',
+            name: 'john',
 
-    },
-    {
-      phone: 456,
-      plate: 'def',
-      name: 'bob',
+        },
+        {
+            phone: 456,
+            plate: 'def',
+            name: 'bob',
 
-    },
-  ];
+        },
+    ];
 
-  selectedUsers:string[] = [];
+    selectedUsers: string[] = [];
+    selectedUnknownUsers: string[] = [];
 
-  unknowns: string[] = ['abc', 'def', 'hij'];
+    unknownUsers: User[] = [
+        {
+            plate: 'asj1'
+        },
+        {
+            plate: 'dib5'
+        },
+        {
+            plate: 'nbd9'
+        }
+    ];
 
-  private updateSubscription: Subscription;
+    private updateSubscription: Subscription;
 
-  constructor(private serv: MainService) { }
+    constructor(private serv: MainService) { }
 
-  updateUsers() {
-    this.serv.SendUpdate(this.CurrentLot, this.capacity).subscribe((res) => {
-      if (res.response == "Success") {
-        window.alert("Successfully sent update");
-      } else {
-        window.alert("Failed to send alert");
-      }
-      console.log(res);
-    });
-  }
-
-  update() {
-    this.serv.GetCapacity(this.CurrentLot).subscribe((res) => {
-      this.capacity = res;
-    });
-    this.serv.GetRegistered(this.CurrentLot).subscribe((users) => {
-      for (let u of users) {
-        this.users.push(u);
-      }
-    });
-    this.serv.GetUnregistered(this.CurrentLot).subscribe((unreg) => {
-      for (let u of unreg) {
-        this.unknowns.push(u);
-      }
-    });
-  }
-
-  addEntryToList(user:User){
-    var plate = user.plate;
-    if (this.selectedUsers.includes(plate)) {
-      this.selectedUsers.splice(this.selectedUsers.indexOf(plate, 0));
-    } else {
-      this.selectedUsers.push(plate);
+    updateUsers() {
+        this.serv.SendUpdate(this.CurrentLot, this.capacity).subscribe((res) => {
+            if (res.response == "Success") {
+                window.alert("Successfully sent update");
+            } else {
+                window.alert("Failed to send alert");
+            }
+            console.log(res);
+        });
     }
-    console.log(this.selectedUsers);
-  }
-  deleteEntry() {
 
-  }
+    update() {
+        this.serv.GetCapacity(this.CurrentLot).subscribe((res) => {
+            this.capacity = res;
+        });
+        this.serv.GetRegistered(this.CurrentLot).subscribe((users) => {
+            for (let u of users) {
+                this.users.push(u);
+            }
+        });
+        this.serv.GetUnregistered(this.CurrentLot).subscribe((unreg) => {
+            for (let u of unreg) {
+                this.unknownUsers.push(u);
+            }
+        });
+    }
 
-  editEntry() {
+    addEntryToList(user: User) {
+        var plate = user.plate;
+        if (this.selectedUsers.includes(plate)) {
+            this.selectedUsers.splice(this.selectedUsers.indexOf(plate, 0));
+        } else {
+            this.selectedUsers.push(plate);
+        }
+        console.log(this.selectedUsers);
+    }
 
-  }
+    addUnknownToList(user: User) {
+        var plate = user.plate;
+        if (this.selectedUnknownUsers.includes(plate)) {
+            this.selectedUnknownUsers.splice(this.selectedUnknownUsers.indexOf(plate, 0));
+        }
+        else {
+            this.selectedUnknownUsers.push(plate);
+        }
+        console.log(this.selectedUnknownUsers);
+    }
 
-  getCurrentLot() {
-    this.serv.GetCurrentLot(this.CurrentLot).subscribe((res) => {
-      this.maxCapacity = res.maxCapacity;
-    })
-  }
+    deleteEntry() {
+        this.serv.deleteUsers(this.selectedUsers).subscribe((users) => {
+            this.users = [];
+            for (let u of users) {
+                this.users.push(u);
+            }
+        });
+    }
 
-  ngOnInit() {
-    this.updateSubscription = interval(100000).subscribe(() => {
-      this.update();
-    });
-  }
+    deleteUnknownEntry() {
+        this.serv.deleteUsers(this.selectedUnknownUsers).subscribe((users) => {
+            this.unknownUsers = [];
+            for (let u of users) {
+                this.unknownUsers.push(u);
+            }
+        });
+    }
 
-  ngOnDestroy() {
-    this.updateSubscription.unsubscribe();
-  }
+    editEntry() {
+
+    }
+
+    getCurrentLot() {
+        this.serv.GetCurrentLot(this.CurrentLot).subscribe((res) => {
+            this.maxCapacity = res.maxCapacity;
+        })
+    }
+
+    ngOnInit() {
+        this.updateSubscription = interval(100000).subscribe(() => {
+            this.update();
+        });
+    }
+
+    ngOnDestroy() {
+        this.updateSubscription.unsubscribe();
+    }
 
 }

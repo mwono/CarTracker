@@ -58,10 +58,12 @@
                 </h3>
                 <table class="table">
                     <tr>
+                        <th scope="col"></th>
                         <th scope="col">License Plate</th>
                     </tr>
-                    <tbody *ngFor="let unknown of unknowns">
-                        <td>{{ unknown }}</td>
+                    <tbody *ngFor="let unknown of unknownUsers">
+                        <td><input type="checkbox" (change)="addUnknownToList(unknown)"></td>
+                        <td>{{ unknown?.plate }}</td>
                     </tbody>
                 </table>
             </div>

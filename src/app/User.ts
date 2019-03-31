@@ -1,6 +1,6 @@
 export interface User{ 
-    phone: number,
+    phone?: number,
     plate: string,
-    name: string,
+    name?: string,
 
 };
