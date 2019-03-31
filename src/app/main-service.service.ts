@@ -6,12 +6,7 @@ import { Observable, throwError } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-/*
-/getCapacity: return count of cars in active lot/DB
-/getActiveRegistered: return list of all active registered cars
-/getActiveNotReg: return list of all active non-reg cars
-/sendUpdate: sends update to all reg cars
-*/
+
 export class MainService {
     constructor(private http: HttpClient) { }
 

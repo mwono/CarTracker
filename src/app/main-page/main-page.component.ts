@@ -38,6 +38,7 @@ export class MainPageComponent implements OnInit {
             for (let u of users) {
               if (!this.users.includes(u.plate) && u.plate.length > 0) {
                 this.users.push(u.plate);
+                this.capacity++;
               }
             }
         });
@@ -45,10 +46,10 @@ export class MainPageComponent implements OnInit {
             for (let u of unreg) {
               if (!this.unknownUsers.includes(u.plate) && u.plate.length > 0) {
                 this.unknownUsers.push(u.plate);
+                this.capacity++;
               }
             }
         });
-        this.capacity = this.users.length + this.unknownUsers.length;
     }
 
     addEntryToList(user: string) {
