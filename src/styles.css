@@ -2,14 +2,21 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
 body {
-    background-color: #c4c4c4;
+    background-color: #b1dfb0;
     font-family: 'Rubik', sans-serif;
 }
 
 .jumbotron {
-    background-color: #7b7b7b;
+    background-image: url('./cars.jpg');
+    background-size: cover;
 }
 
 #mainTitle {
     color: white;
+    font-size: 69px;
+    text-decoration: underline overline;
 }
+
+/* hr {
+    border: 1.5px solid #eecd02;
+} */
