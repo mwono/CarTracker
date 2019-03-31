@@ -27,13 +27,13 @@
                         Registered
                     </h3>
                 </div>
-                <div class="col-md-12 d-flex justify-content-center pb-3">
+                <!-- <div class="col-md-12 d-flex justify-content-center pb-3">
                     <div>
                         <button class="btn btn-danger" (click)="deleteEntry()">
                             Delete
                         </button>
                     </div>
-                </div>
+                </div> -->
             </div>
             <table class="table">
                 <tr>
@@ -41,7 +41,7 @@
                     <th scope="col">License Plate</th>
                 </tr>
                 <tbody *ngFor="let user of users">
-                    <td><input type="checkbox" (change)="addEntryToList(user)"></td>
+                    <!-- <td><input type="checkbox" (change)="addEntryToList(user)"></td> -->
                     <td>{{ user }}</td>
                 </tbody>
             </table>
@@ -55,11 +55,11 @@
                         Unregistered
                     </h3>
                 </div>
-                <div class="col-md-12 d-flex justify-content-center pb-3">
+                <!-- <div class="col-md-12 d-flex justify-content-center pb-3">
                     <button class="btn btn-danger" (click)="deleteUnknownEntry()">
                         Delete
                     </button>
-                </div>
+                </div> -->
             </div>
             <table class="table">
                 <tr>
@@ -67,7 +67,7 @@
                     <th scope="col">License Plate</th>
                 </tr>
                 <tbody *ngFor="let unknown of unknownUsers">
-                    <td><input type="checkbox" (change)="addUnknownToList(unknown)"></td>
+                    <!-- <td><input type="checkbox" (change)="addUnknownToList(unknown)"></td> -->
                     <td>{{ unknown }}</td>
                 </tbody>
             </table>

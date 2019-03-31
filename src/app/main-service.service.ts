@@ -8,18 +8,20 @@ import { Observable, throwError } from 'rxjs';
 })
 
 export class MainService {
+    headers = new HttpHeaders().set('Content-Type', 'application/json')
+        .append("Access-Control-Allow-Origin", "*")
     constructor(private http: HttpClient) { }
 
     SendUpdate(parkingLot: string, cap: number): Observable<any> {
-        return this.http.post<any>('/sendUpdate', { lot: parkingLot, capacity: cap })
+        return this.http.post<any>('/sendUpdate', { lot: parkingLot, capacity: cap }, { headers: this.headers })
             .pipe(
                 catchError(this.handleError)
             );
     }
 
     GetRegistered(parkingLot: string): Observable<any[]> {
-        return this.http.post<any[]>('https://us-central1-licese-plate-scanner.cloudfunctions.net/registered', { lot: parkingLot })
-            .pipe(timeout(20000),
+        return this.http.post<any[]>('https://us-central1-licese-plate-scanner.cloudfunctions.net/registered', { lot: parkingLot }, { headers: this.headers })
+            .pipe(timeout(5000),
             map((res: any[]) => {
                 return res;
             }),
@@ -28,8 +30,8 @@ export class MainService {
     }
 
     GetUnregistered(parkingLot: string): Observable<any[]> {
-        return this.http.post<any[]>('https://us-central1-licese-plate-scanner.cloudfunctions.net/unregistered', { lot: parkingLot })
-            .pipe(timeout(20000),
+        return this.http.post<any[]>('https://us-central1-licese-plate-scanner.cloudfunctions.net/unregistered', { lot: parkingLot }, { headers: this.headers })
+            .pipe(timeout(5000),
             map((res: any[]) => {
                 return res;
             }),
@@ -38,15 +40,18 @@ export class MainService {
     }
 
     GetCurrentLot(parkingLot: string): Observable<any> {
-        return this.http.post('https://us-central1-licese-plate-scanner.cloudfunctions.net/lotCapacity', { lot: parkingLot })
-            .pipe(
-                catchError(this.handleError)
-            );
+        return this.http.post('https://us-central1-licese-plate-scanner.cloudfunctions.net/lotCapacity', { lot: parkingLot }, { headers: this.headers })
+        .pipe(timeout(5000),
+        map((res: any[]) => {
+            return res;
+        }),
+            catchError(this.handleError)
+        );
     }
 
     deleteUsers(plateId: string[], r: boolean): Observable<any[]> {
         console.log(JSON.stringify({ list: plateId, registered: r }));
-        return this.http.post<any[]>('tempEndpoint', JSON.stringify({ list: plateId, registered: r })).pipe(catchError(this.handleError));
+        return this.http.post<any[]>('tempEndpoint', JSON.stringify({ list: plateId, registered: r }), { headers: this.headers }).pipe(catchError(this.handleError));
     }
 
     private handleError(error: HttpErrorResponse) {
