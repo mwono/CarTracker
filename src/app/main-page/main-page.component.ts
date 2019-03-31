@@ -55,7 +55,7 @@ export class MainPageComponent implements OnInit {
     addEntryToList(user: string) {
         var plate = user;
         if (this.selectedUsers.includes(plate)) {
-            this.selectedUsers.splice(this.selectedUsers.indexOf(plate, 0));
+            this.selectedUsers.splice(this.selectedUsers.indexOf(plate));
         } else {
             this.selectedUsers.push(plate);
         }
@@ -65,7 +65,7 @@ export class MainPageComponent implements OnInit {
     addUnknownToList(user: string) {
         var plate = user;
         if (this.selectedUnknownUsers.includes(plate)) {
-            this.selectedUnknownUsers.splice(this.selectedUnknownUsers.indexOf(plate, 0));
+            this.selectedUnknownUsers.splice(this.selectedUnknownUsers.indexOf(plate));
         }
         else {
             this.selectedUnknownUsers.push(plate);
@@ -74,23 +74,22 @@ export class MainPageComponent implements OnInit {
     }
 
     deleteEntry() {
-        this.serv.deleteUsers(this.selectedUsers).subscribe((users) => {
-            for (let u of users) {
-              if (!this.users.includes(u)) {
-                this.users.push(u);
-              }
-            }
+        this.serv.deleteUsers(this.selectedUsers).subscribe((res) => {
+          for (let i of this.selectedUsers) {
+            this.users.splice(this.users.indexOf(i));
+            this.capacity--;
+          }
+          this.users.length = 0;
         });
     }
 
     deleteUnknownEntry() {
-        this.serv.deleteUsers(this.selectedUnknownUsers).subscribe((users) => {
-            // this.unknownUsers = [];
-            for (let u of users) {
-              if (!this.unknownUsers.includes(u)) {
-                this.unknownUsers.push(u);
-              }
-            }
+        this.serv.deleteUsers(this.selectedUnknownUsers).subscribe((res) => {
+          for (let i of this.selectedUnknownUsers) {
+            this.unknownUsers.splice(this.unknownUsers.indexOf(i));
+            this.capacity--;
+          }
+          this.unknownUsers.length = 0;
         });
     }
 
