@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map, timeout } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { stringify } from 'querystring';
 
 @Injectable({
     providedIn: 'root'
