@@ -29,7 +29,7 @@ export class MainPageComponent implements OnInit {
     },
   ];
 
-  selectedUsers:User[] = [];
+  selectedUsers:string[] = [];
 
   unknowns: string[] = ['abc', 'def', 'hij'];
 
@@ -65,10 +65,11 @@ export class MainPageComponent implements OnInit {
   }
 
   addEntryToList(user:User){
-    if (this.selectedUsers.includes(user)) {
-      this.selectedUsers.splice(this.selectedUsers.indexOf(user, 0));
+    var plate = user.plate;
+    if (this.selectedUsers.includes(plate)) {
+      this.selectedUsers.splice(this.selectedUsers.indexOf(plate, 0));
     } else {
-      this.selectedUsers.push(user);
+      this.selectedUsers.push(plate);
     }
     console.log(this.selectedUsers);
   }
