@@ -64,10 +64,13 @@ export class MainPageComponent implements OnInit {
     });
   }
 
-  addEntryToList(values:any){
-      if(values.checked) {
-        
-      }
+  addEntryToList(user:User){
+    if (this.selectedUsers.includes(user)) {
+      this.selectedUsers.splice(this.selectedUsers.indexOf(user, 0));
+    } else {
+      this.selectedUsers.push(user);
+    }
+    console.log(this.selectedUsers);
   }
   deleteEntry() {
 

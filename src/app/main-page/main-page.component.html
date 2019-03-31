@@ -37,7 +37,7 @@
                         <th scope="col">License Plate</th>
                     </tr>
                     <tbody *ngFor="let user of users" >
-                        <td><input type="checkbox" (change)="addEntryToList($event)"></td>
+                        <td><input type="checkbox" (change)="addEntryToList(user)"></td>
                         <td>{{ user?.phone }}</td>
                         <td>{{ user?.plate }}</td>
                     </tbody>
