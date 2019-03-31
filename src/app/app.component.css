@@ -1,0 +1,13 @@
+nav a, .login li a {
+        padding: 5px 10px;
+        display: inline-block;
+        transition: 0.6s ease;
+        font-family: century gothic;
+        font-weight: bolder;
+        text-decoration: none;
+        color: white;
+}
+
+nav a:hover, .login li:hover {
+        background-color: black;
+}
