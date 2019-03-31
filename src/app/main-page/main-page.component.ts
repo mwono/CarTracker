@@ -123,6 +123,14 @@ export class MainPageComponent implements OnInit {
     getCurrentLot() {
         this.serv.GetCurrentLot(this.CurrentLot).subscribe((res) => {
             this.maxCapacity = res.maxCapacity;
+            this.users = [];
+            for (let u of res.users) {
+                this.users.push(u);
+            }
+            this.unknownUsers = [];
+            for (let u of res.unknowns) {
+                this.unknownUsers.push(u);
+            }
         })
     }
 
