@@ -102,7 +102,7 @@ export class MainPageComponent implements OnInit {
 
     ngOnInit() {
       this.getCurrentLot();
-        this.updateSubscription = interval(10000).subscribe(() => {
+        this.updateSubscription = interval(30000).subscribe(() => {
             this.update();
         });
     }
