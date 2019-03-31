@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, timeout } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { User } from './User';
 
 @Injectable({
     providedIn: 'root'
@@ -24,35 +23,34 @@ export class MainService {
     }
 
     GetRegistered(parkingLot: string): Observable<any[]> {
-        return this.http.post<any[]>('/getActiveRegistered', { lot: parkingLot })
-            .pipe(
+        return this.http.post<any[]>('https://us-central1-licese-plate-scanner.cloudfunctions.net/registered', { lot: parkingLot })
+            .pipe(timeout(20000),
+            map((res: any[]) => {
+                return res;
+            }),
                 catchError(this.handleError)
             );
     }
 
     GetUnregistered(parkingLot: string): Observable<any[]> {
-        return this.http.post<any[]>('/getActiveNotReg', { lot: parkingLot })
-            .pipe(
-                catchError(this.handleError)
-            );
-    }
-
-    GetCapacity(parkingLot: string): Observable<any> {
-        return this.http.post<any>('/getCapacity', { lot: parkingLot })
-            .pipe(
+        return this.http.post<any[]>('https://us-central1-licese-plate-scanner.cloudfunctions.net/unregistered', { lot: parkingLot })
+            .pipe(timeout(20000),
+            map((res: any[]) => {
+                return res;
+            }),
                 catchError(this.handleError)
             );
     }
 
     GetCurrentLot(parkingLot: string): Observable<any> {
-        return this.http.post('getLotInfo', { lot: parkingLot })
+        return this.http.post('https://us-central1-licese-plate-scanner.cloudfunctions.net/lotCapacity', { lot: parkingLot })
             .pipe(
                 catchError(this.handleError)
             );
     }
 
     deleteUsers(plateId: string[]): Observable<any[]> {
-        return this.http.post<any[]>('tempEndpoint', { plateId: plateId }).pipe(catchError(this.handleError));
+        return this.http.post<any[]>('tempEndpoint', JSON.stringify(plateId)).pipe(catchError(this.handleError));
     }
 
     private handleError(error: HttpErrorResponse) {

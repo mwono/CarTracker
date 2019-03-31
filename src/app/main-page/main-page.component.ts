@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../User';
 import { MainService } from '../main-service.service';
-import { getLocaleTimeFormat } from '@angular/common';
 import { Subscription, interval } from 'rxjs';
 
 @Component({
@@ -12,37 +10,13 @@ import { Subscription, interval } from 'rxjs';
 export class MainPageComponent implements OnInit {
     capacity: number = 0;
     maxCapacity: number = 0;
-    ParkingLots: string[] = ['Lot A', 'Lot B', 'Lot C'];
-    CurrentLot: string = '';
-    users: User[] = [
-        {
-            phone: 123,
-            plate: 'abc',
-            name: 'john',
-
-        },
-        {
-            phone: 456,
-            plate: 'def',
-            name: 'bob',
-
-        },
-    ];
+    ParkingLots: string[] = ['A', 'B', 'C'];
+    CurrentLot: string = 'A';
+    users: string[] = [];
+    unknownUsers: string[] = [];
 
     selectedUsers: string[] = [];
     selectedUnknownUsers: string[] = [];
-
-    unknownUsers: User[] = [
-        {
-            plate: 'asj1'
-        },
-        {
-            plate: 'dib5'
-        },
-        {
-            plate: 'nbd9'
-        }
-    ];
 
     private updateSubscription: Subscription;
 
@@ -60,25 +34,25 @@ export class MainPageComponent implements OnInit {
     }
 
     update() {
-        this.serv.GetCapacity(this.CurrentLot).subscribe((res) => {
-            this.capacity = res;
-        });
         this.serv.GetRegistered(this.CurrentLot).subscribe((users) => {
-          this.users = [];
             for (let u of users) {
-                this.users.push(u);
+              if (!this.users.includes(u.plate) && u.plate.length > 0) {
+                this.users.push(u.plate);
+              }
             }
         });
         this.serv.GetUnregistered(this.CurrentLot).subscribe((unreg) => {
-          this.unknownUsers = [];
             for (let u of unreg) {
-                this.unknownUsers.push(u);
+              if (!this.unknownUsers.includes(u.plate) && u.plate.length > 0) {
+                this.unknownUsers.push(u.plate);
+              }
             }
         });
+        this.capacity = this.users.length + this.unknownUsers.length;
     }
 
-    addEntryToList(user: User) {
-        var plate = user.plate;
+    addEntryToList(user: string) {
+        var plate = user;
         if (this.selectedUsers.includes(plate)) {
             this.selectedUsers.splice(this.selectedUsers.indexOf(plate, 0));
         } else {
@@ -87,8 +61,8 @@ export class MainPageComponent implements OnInit {
         console.log(this.selectedUsers);
     }
 
-    addUnknownToList(user: User) {
-        var plate = user.plate;
+    addUnknownToList(user: string) {
+        var plate = user;
         if (this.selectedUnknownUsers.includes(plate)) {
             this.selectedUnknownUsers.splice(this.selectedUnknownUsers.indexOf(plate, 0));
         }
@@ -100,42 +74,35 @@ export class MainPageComponent implements OnInit {
 
     deleteEntry() {
         this.serv.deleteUsers(this.selectedUsers).subscribe((users) => {
-            this.users = [];
             for (let u of users) {
+              if (!this.users.includes(u)) {
                 this.users.push(u);
+              }
             }
         });
     }
 
     deleteUnknownEntry() {
         this.serv.deleteUsers(this.selectedUnknownUsers).subscribe((users) => {
-            this.unknownUsers = [];
+            // this.unknownUsers = [];
             for (let u of users) {
+              if (!this.unknownUsers.includes(u)) {
                 this.unknownUsers.push(u);
+              }
             }
         });
     }
 
-    editEntry() {
-
-    }
-
     getCurrentLot() {
         this.serv.GetCurrentLot(this.CurrentLot).subscribe((res) => {
-            this.maxCapacity = res.maxCapacity;
-            this.users = [];
-            for (let u of res.users) {
-                this.users.push(u);
-            }
-            this.unknownUsers = [];
-            for (let u of res.unknowns) {
-                this.unknownUsers.push(u);
-            }
-        })
+            this.maxCapacity = res.response;
+        });
+        this.update();
     }
 
     ngOnInit() {
-        this.updateSubscription = interval(100000).subscribe(() => {
+      this.getCurrentLot();
+        this.updateSubscription = interval(10000).subscribe(() => {
             this.update();
         });
     }
