@@ -64,11 +64,13 @@ export class MainPageComponent implements OnInit {
             this.capacity = res;
         });
         this.serv.GetRegistered(this.CurrentLot).subscribe((users) => {
+          this.users = [];
             for (let u of users) {
                 this.users.push(u);
             }
         });
         this.serv.GetUnregistered(this.CurrentLot).subscribe((unreg) => {
+          this.unknownUsers = [];
             for (let u of unreg) {
                 this.unknownUsers.push(u);
             }
