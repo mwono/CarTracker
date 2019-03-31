@@ -1,5 +1,5 @@
 const express = require('express');
-const path = requite('path');
+const path = require('path');
 
 const app = express();
 
