@@ -55,7 +55,7 @@ export class MainPageComponent implements OnInit {
     addEntryToList(user: string) {
         var plate = user;
         if (this.selectedUsers.includes(plate)) {
-            this.selectedUsers.splice(this.selectedUsers.indexOf(plate));
+            this.selectedUsers.splice(this.selectedUsers.indexOf(plate), 1);
         } else {
             this.selectedUsers.push(plate);
         }
@@ -65,7 +65,7 @@ export class MainPageComponent implements OnInit {
     addUnknownToList(user: string) {
         var plate = user;
         if (this.selectedUnknownUsers.includes(plate)) {
-            this.selectedUnknownUsers.splice(this.selectedUnknownUsers.indexOf(plate));
+            this.selectedUnknownUsers.splice(this.selectedUnknownUsers.indexOf(plate), 1);
         }
         else {
             this.selectedUnknownUsers.push(plate);
@@ -76,20 +76,20 @@ export class MainPageComponent implements OnInit {
     deleteEntry() {
         this.serv.deleteUsers(this.selectedUsers).subscribe((res) => {
           for (let i of this.selectedUsers) {
-            this.users.splice(this.users.indexOf(i));
+            this.users.splice(this.users.indexOf(i), 1);
             this.capacity--;
           }
-          this.users.length = 0;
+          this.selectedUsers.length = 0;
         });
     }
 
     deleteUnknownEntry() {
         this.serv.deleteUsers(this.selectedUnknownUsers).subscribe((res) => {
           for (let i of this.selectedUnknownUsers) {
-            this.unknownUsers.splice(this.unknownUsers.indexOf(i));
+            this.unknownUsers.splice(this.unknownUsers.indexOf(i), 1);
             this.capacity--;
           }
-          this.unknownUsers.length = 0;
+          this.selectedUnknownUsers.length = 0;
         });
     }
 
