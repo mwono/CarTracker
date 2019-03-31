@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
         phone: 0,
         plate: '',
         name: '',
+
     }
 
     constructor(private serv: LoginService) { }

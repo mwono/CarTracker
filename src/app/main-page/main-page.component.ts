@@ -18,14 +18,19 @@ export class MainPageComponent implements OnInit {
     {
       phone: 123,
       plate: 'abc',
-      name: 'john'
+      name: 'john',
+
     },
     {
       phone: 456,
       plate: 'def',
-      name: 'bob'
+      name: 'bob',
+
     },
   ];
+
+  selectedUsers:User[] = [];
+
   unknowns: string[] = ['abc', 'def', 'hij'];
 
   private updateSubscription: Subscription;
@@ -57,6 +62,19 @@ export class MainPageComponent implements OnInit {
         this.unknowns.push(u);
       }
     });
+  }
+
+  addEntryToList(values:any){
+      if(values.checked) {
+        
+      }
+  }
+  deleteEntry() {
+
+  }
+
+  editEntry() {
+
   }
 
   getCurrentLot() {
