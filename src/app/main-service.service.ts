@@ -20,7 +20,7 @@ export class MainService {
     }
 
     GetRegistered(parkingLot: string): Observable<any[]> {
-        return this.http.post<any[]>('https://us-central1-licese-plate-scanner.cloudfunctions.net/registered', { lot: parkingLot }, { headers: this.headers })
+        return this.http.post<any[]>('https://us-central1-parking-solution-463a9.cloudfunctions.net/registered', { lot: parkingLot }, { headers: this.headers })
             .pipe(timeout(5000),
             map((res: any[]) => {
                 return res;
@@ -30,7 +30,7 @@ export class MainService {
     }
 
     GetUnregistered(parkingLot: string): Observable<any[]> {
-        return this.http.post<any[]>('https://us-central1-licese-plate-scanner.cloudfunctions.net/unregistered', { lot: parkingLot }, { headers: this.headers })
+        return this.http.post<any[]>('https://us-central1-parking-solution-463a9.cloudfunctions.net/unregistered', { lot: parkingLot }, { headers: this.headers })
             .pipe(timeout(5000),
             map((res: any[]) => {
                 return res;

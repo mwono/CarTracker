@@ -94,17 +94,32 @@ export class MainPageComponent implements OnInit {
     }
 
     getCurrentLot() {
-        this.serv.GetCurrentLot(this.CurrentLot).subscribe((res) => {
-            this.maxCapacity = res.response;
-        });
-        this.update();
+        switch (this.CurrentLot) {
+            case 'A':this.maxCapacity = 100;
+            break;
+            case 'B':this.maxCapacity = 50;
+            break;
+            case 'C':this.maxCapacity = -1;
+            break;
+        }
+        // this.serv.GetCurrentLot(this.CurrentLot).subscribe((res) => {
+        //     this.maxCapacity = res.response;
+        // });
+        if (this.maxCapacity > 50) {
+            this.update();
+        } else {
+            this.users.length = 0;
+            this.unknownUsers.length = 0;
+        }
     }
 
     ngOnInit() {
-      this.getCurrentLot();
-        this.updateSubscription = interval(30000).subscribe(() => {
-            this.update();
-        });
+        this.getCurrentLot();
+        if (this.maxCapacity > 50) {
+            this.updateSubscription = interval(30000).subscribe(() => {
+                this.update();
+            });
+        }
     }
 
     ngOnDestroy() {
