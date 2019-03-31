@@ -1,72 +1,84 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <div>
-                Select a parking lot
+            <div class="d-flex justify-content-center pb-3">
+                <div class="pr-3">Select a parking lot</div>
                 <select [(ngModel)]="CurrentLot" (change)=getCurrentLot()>
                     <option *ngFor="let lot of ParkingLots" [value]="CurrentLot">{{ lot }}</option>
                 </select>
             </div>
             <form (submit)=updateUsers()>
-                <h3>
+                <h3 class="d-flex justify-content-center">
                     Capacity: {{ capacity }}
                 </h3>
-                <h3>
+                <h3 class="d-flex justify-content-center">
                     Max Capacity: {{ maxCapacity}}
                 </h3>
-                <button class="btn btn-success" type="submit">Update</button>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-success" type="submit">Update</button>
+                </div>
+
             </form>
-
         </div>
         <div class="col-md-4">
-            <div>
-                <h3>
-                    Registered
-                    <button class="btn btn-primary">
-                        Edit
-                    </button>
-                    <button class="btn btn-danger" (click)="deleteEntry()">
-                        Delete
-                    </button>
-                </h3>
-
-                <table class="table">
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">License Plate</th>
-                    </tr>
-                    <tbody *ngFor="let user of users" >
-                        <td><input type="checkbox" (change)="addEntryToList(user)"></td>
-                        <td>{{ user?.phone }}</td>
-                        <td>{{ user?.plate }}</td>
-                    </tbody>
-                </table>
-
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <h3>
+                        Registered
+                    </h3>
+                </div>
+                <div class="col-md-12 d-flex justify-content-center pb-3">
+                    <div>
+                        <button class="btn btn-primary">
+                            Edit
+                        </button>
+                        <button class="btn btn-danger" (click)="deleteEntry()">
+                            Delete
+                        </button>
+                    </div>
+                </div>
             </div>
+            <table class="table">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">License Plate</th>
+                </tr>
+                <tbody *ngFor="let user of users">
+                    <td><input type="checkbox" (change)="addEntryToList(user)"></td>
+                    <td>{{ user?.phone }}</td>
+                    <td>{{ user?.plate }}</td>
+                </tbody>
+            </table>
+
+
         </div>
         <div class="col-md-4">
-            <div>
-                <h3>
-                    Unregistered
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <h3>
+                        Unregistered
+                    </h3>
+                </div>
+                <div class="col-md-12 d-flex justify-content-center pb-3">
                     <button class="btn btn-primary">
                         Edit
                     </button>
                     <button class="btn btn-danger">
                         Delete
                     </button>
-                </h3>
-                <table class="table">
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">License Plate</th>
-                    </tr>
-                    <tbody *ngFor="let unknown of unknownUsers">
-                        <td><input type="checkbox" (change)="addUnknownToList(unknown)"></td>
-                        <td>{{ unknown?.plate }}</td>
-                    </tbody>
-                </table>
+                </div>
             </div>
+            <table class="table">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">License Plate</th>
+                </tr>
+                <tbody *ngFor="let unknown of unknownUsers">
+                    <td><input type="checkbox" (change)="addUnknownToList(unknown)"></td>
+                    <td>{{ unknown?.plate }}</td>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
